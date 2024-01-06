@@ -12,12 +12,10 @@ The csv format is expected to be as follows: *Date,Details,Debit,Credit,Balance*
 - Get average monthly Credits or Debits
 - Export Debits or Credits to Excel
 
-## How can you use this project?
-Ensure you have Python installed and open Command Prompt / Shell.
+## Installation
 
-Navigate to the root directory of the project.
-
-Enter the following command:
-
+To use this project, you need Python installed. Clone the repository and install the required dependencies using pip:
 ```bash
+git clone https://github.com/CoderDez/boi_transaction_analyzer.git
+cd boi_transaction_analyzer
 pip install -r requirements.txt
