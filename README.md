@@ -11,3 +11,13 @@ The csv format is expected to be as follows: *Date,Details,Debit,Credit,Balance*
 - Display monthly Credits or Debits
 - Get average monthly Credits or Debits
 - Export Debits or Credits to Excel
+
+## How can you use this project?
+Ensure you have Python installed and open Command Prompt / Shell.
+
+Navigate to the root directory of the project.
+
+Enter the following command:
+
+```bash
+pip install -r requirements.txt
