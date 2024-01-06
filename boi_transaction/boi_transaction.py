@@ -1,3 +1,7 @@
+import pandas as pd
+from openpyxl import Workbook
+from openpyxl.styles import Font
+from openpyxl.utils.dataframe import dataframe_to_rows
 from utils import get_month_name
 
 
@@ -217,3 +221,88 @@ class BOITransactionAnalyzer:
             print("No monthly debits found.")
         except Exception as e:
             print(f"ERROR when getting average monthly debits: {e}")
+
+
+    def export_credits_excel(self, output_path: str):
+        """
+        Export credit transaction data to an Excel file.
+
+        Args:
+        - output_path (str): The file path to save the Excel file.
+        """
+        try:
+            credits_data = self.__format_data_for_output(self.__credits)
+            self.__create_excel(output_path, credits_data)
+        except Exception as e:
+            print(f"ERROR while exporting credits to excel: {e}")
+
+    def export_debits_excel(self, output_path: str):
+        """
+        Export debit transaction data to an Excel file.
+
+        Args:
+        - output_path (str): The file path to save the Excel file.
+        """
+
+        try:
+            debits_data = self.__format_data_for_output(self.__debits)
+            self.__create_excel(output_path, debits_data)
+
+        except Exception as e:
+            print(f"ERROR while exporting debits to excel: {e}")
+
+    def __format_data_for_output(self, data: dict) -> list[dict]:
+        """
+        Formats transaction data for output in Excel.
+
+        Args:
+        - data (dict): A dictionary containing transaction details.
+
+        Returns:
+        - list[dict]: A list of dictionaries with formatted transaction data.
+        """
+        formatted_data = []
+
+        for month, days_data in data.items():
+            for day, details_data in days_data.items():
+                for detail, amount in details_data.items():
+                    formatted_data.append({
+                        'Month': month,
+                        'Day': day,
+                        'Details': detail,
+                        'Amount': amount
+                    })
+
+        return formatted_data
+
+    def __create_excel(self, output_path: str, data: list[dict]):
+        """
+        Creates an Excel file from provided data.
+
+        Args:
+        - output_path (str): The file path to save the Excel file.
+        - data (list[dict]): A list of dictionaries containing transaction data.
+
+        Writes the formatted transaction data into an Excel file at the specified output path.
+        """
+        df = pd.DataFrame(data)
+        wb = Workbook()
+        ws = wb.active
+
+        for r in dataframe_to_rows(df, index=False, header=False):
+            ws.append(r)
+
+        columns_width = {'A': 15, 'B': 10, 'C': 30, 'D': 12}
+        headers = ["Month", "Day", "Details", "Amount"]
+
+        for col, header in enumerate(headers, start=1):
+            cell = ws.cell(row=1, column=col, value=header)
+            cell.font = Font(bold=True)
+            ws.column_dimensions[chr(64 + col)].width = columns_width[chr(64 + col)]
+
+        wb.save(output_path)
+
+
+bta = BOITransactionAnalyzer("boi_transactions.csv")
+bta.export_credits_excel("test.xlsx")
+
