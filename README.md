@@ -3,6 +3,7 @@ A project to analyze data for a csv file containing bank account transactions
 
 ## Details
 The functionality was written to work with transaction histories that can be downloaded from Bank Accounts.
+
 The csv format is expected to be as follows: *Date,Details,Debit,Credit,Balance*
 
 ## Features 
