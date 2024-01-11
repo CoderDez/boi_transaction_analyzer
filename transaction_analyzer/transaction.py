@@ -300,7 +300,3 @@ class TransactionAnalyzer:
 
         wb.save(output_path)
 
-
-bta = TransactionAnalyzer("boi_transactions.csv")
-bta.export_credits_excel("test.xlsx")
-
