@@ -5,14 +5,14 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 from utils import get_month_name
 
 
-class BOITransactionAnalyzer:
+class TransactionAnalyzer:
     """
-    A class to analyze transaction data from a Bank Of Ireland account from a CSV file.
+    A class to analyze transaction data from a Bank Account from a CSV file.
     """
 
     def __init__(self, file_path: str):
         """
-        Initializes the BOITransactionAnalyzer class.
+        Initializes the TransactionAnalyzer class.
 
         Args:
         - file_path (str): The path to the CSV file containing transaction data.
@@ -59,8 +59,6 @@ class BOITransactionAnalyzer:
                 self.__update_transactions(self.__debits, int(month), int(day), details, float(debit))
             elif credit:
                 self.__update_transactions(self.__credits, int(month), int(day), details, float(credit))
-
-
 
 
     def __update_transactions(self, transaction_type, month, day, details, amount):
@@ -303,6 +301,6 @@ class BOITransactionAnalyzer:
         wb.save(output_path)
 
 
-bta = BOITransactionAnalyzer("boi_transactions.csv")
+bta = TransactionAnalyzer("boi_transactions.csv")
 bta.export_credits_excel("test.xlsx")
 

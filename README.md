@@ -1,4 +1,4 @@
-# boi_transaction_analyzer
+# transaction_analyzer
 A project to analyze data for a csv file containing bank account transactions
 
 ## Details
